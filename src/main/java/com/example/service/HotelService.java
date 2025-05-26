@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * ホテルサービスを表すクラスです.
+ * ホテルに関する機能の業務処理を行うクラスです.
  *
  * @author takuto.itami
  */
@@ -20,23 +20,18 @@ public class HotelService {
     private HotelRepository hotelRepository;
 
     /**
-     * ホテルを全件取得してくるメソッドです.
-     *
-     * @return ホテルの情報が全件入ったリスト
-     */
-    public List<Hotel> findAll() {
-        List<Hotel> hotels = hotelRepository.findAll();
-        return hotels;
-    }
-
-    /**
      * 指定された価格以下のホテルを検索するメソッドです.
      *
      * @param price 検索の条件に使用するホテルの価格
-     * @return 指定された価格よりも安いホテルの情報が入ったリスト
+     * @return 指定された価格よりも安いホテルの情報が入ったリスト(ない場合は全件のリスト)
      */
-    public List<Hotel> findByPrice(int price) {
-        List<Hotel> hotels = hotelRepository.findByPrice(price);
-        return hotels;
+    public List<Hotel> searchByLessThanPrice(String price) {
+        List<Hotel> hotelList;
+        if (price.isEmpty()) {
+            hotelList = hotelRepository.findAll();
+        } else {
+            hotelList = hotelRepository.findByPrice(Integer.parseInt(price));
+        }
+        return hotelList;
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * ホテルリポジトリを表すクラスです.
+ * hotelsテーブルを操作するリポジトリです.
  *
  * @author takuto.itami
  */
@@ -38,7 +38,7 @@ public class HotelRepository {
      * @return 全ホテルの情報が入ったリスト
      */
     public List<Hotel> findAll() {
-        String sql = "SELECT id, area_name, hotel_name, address, nearest_station, price, parking FROM hotels;";
+        String sql = "SELECT id, area_name, hotel_name, address, nearest_station, price, parking FROM hotels ORDER BY price;";
 
         List<Hotel> hotels = template.query(sql, HOTEL_ROW_MAPPER);
 
@@ -53,7 +53,7 @@ public class HotelRepository {
      * @return 指定された価格よりも安いホテルの情報が入ったリスト
      */
     public List<Hotel> findByPrice(int price) {
-        String sql = "SELECT id, area_name, hotel_name, address, nearest_station, price, parking FROM hotels WHERE price <= :price;";
+        String sql = "SELECT id, area_name, hotel_name, address, nearest_station, price, parking FROM hotels WHERE price <= :price ORDER BY price;";
 
         SqlParameterSource param = new MapSqlParameterSource().addValue("price", price);
 

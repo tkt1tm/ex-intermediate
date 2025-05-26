@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * ホテルアプリのコントローラを表すクラスです.
+ * ホテルに関する機能の制御を行うコントローラです.
  *
  * @author takuto.itami
  */
@@ -50,11 +50,7 @@ public class HotelController {
             return showList(model);
         }
 
-        if (price.isEmpty()) {
-            hotelList = hotelService.findAll();
-        } else {
-            hotelList = hotelService.findByPrice(Integer.parseInt(price));
-        }
+        hotelList = hotelService.searchByLessThanPrice(price);
 
         if (hotelList.isEmpty()) {
             model.addAttribute("noMatch", true);
