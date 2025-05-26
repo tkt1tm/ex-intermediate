@@ -3,7 +3,9 @@ package com.example.repository;
 import com.example.domain.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,4 +44,22 @@ public class HotelRepository {
 
         return hotels;
     }
+
+
+    /**
+     * 指定された価格以下のホテルを検索するメソッドです.
+     *
+     * @param price 検索の条件に使用するホテルの価格
+     * @return 指定された価格よりも安いホテルの情報が入ったリスト
+     */
+    public List<Hotel> findByPrice(int price) {
+        String sql = "SELECT id, area_name, hotel_name, address, nearest_station, price, parking FROM hotels WHERE price <= :price;";
+
+        SqlParameterSource param = new MapSqlParameterSource().addValue("price", price);
+
+        List<Hotel> hotels = template.query(sql, param, HOTEL_ROW_MAPPER);
+
+        return hotels;
+    }
+
 }

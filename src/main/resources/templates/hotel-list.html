@@ -6,10 +6,16 @@
   </head>
   <body>
     <h1>ホテル検索</h1>
-    <form action="">
-      <input type="text" name="" id="" />円以下
+    <form action="mock.com" th:action="@{/hotels/search}" method="post">
+      <input type="text" name="price" />円以下
       <button>検索</button>
     </form>
+    <span th:if="${noMatch}">
+      <p><span th:text="${price}">入力値</span>円以下のホテルは存在しません</p>
+    </span>
+    <span th:if="${stringGiven}">
+      <p>数値のみ入力してください</p>
+    </span>
     <span th:if="${hotelList}">
       <span th:each="hotel : ${hotelList}">
         <table border="1">
