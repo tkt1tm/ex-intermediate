@@ -1,11 +1,22 @@
 package com.example.domain;
 
+/**
+ * チームのドメインを表すクラスです.
+ *
+ * @author takuto.itami
+ */
 public class Team {
+    /** ID */
     private Integer id;
+    /** 所属リーグ名 */
     private String leagueName;
+    /** チーム名 */
     private String teamName;
+    /** 本拠地 */
     private String headquarters;
+    /** 発足日 */
     private String inauguration;
+    /** 歴史 */
     private String history;
 
     public Integer getId() {

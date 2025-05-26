@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>野球チーム一覧</h1>
-    <div th:each="team : ${list}">
+    <div th:each="team : ${teamList}">
       <a
         href="mock.com"
         th:href="@{/teams/show-detail(id=${team.id})}"
