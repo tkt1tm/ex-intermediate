@@ -7,7 +7,12 @@
   <body>
     <h1>野球チーム一覧</h1>
     <div th:each="team : ${list}">
-      <a href="mock.com" th:text="${team.teamName}">チーム名</a>
+      <a
+        href="mock.com"
+        th:href="@{/teams/show-detail(id=${team.id})}"
+        th:text="${team.teamName}"
+        >チーム名</a
+      >
     </div>
   </body>
 </html>

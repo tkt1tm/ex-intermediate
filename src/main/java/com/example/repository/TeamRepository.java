@@ -3,7 +3,9 @@ package com.example.repository;
 import com.example.domain.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,5 +32,15 @@ public class TeamRepository {
         List<Team> teams = template.query(sql, TEAM_ROW_MAPPER);
 
         return teams;
+    }
+
+    public Team findById(int id) {
+        String sql = "SELECT id, league_name, team_name, headquarters, inauguration, history FROM teams WHERE :id = id;";
+
+        SqlParameterSource param = new MapSqlParameterSource("id", id);
+
+        Team team = template.queryForObject(sql, param, TEAM_ROW_MAPPER);
+
+        return team;
     }
 }
